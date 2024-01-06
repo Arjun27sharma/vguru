@@ -62,10 +62,20 @@ const Dashboard = () => {
             
             <div className='d-flex flex-column align-items-center'>
 
+<div className='d-flex flex-row gap-3 align-items-center'>
 
-            <div className='mb-4'>
-                    <Link to={'/game/wordmatch'} className='btn btn-success btn-lg'>Word Match Game</Link>
+            <div className='mb-4' style={{backgroundColor: 'teal', padding: '10px', borderRadius: '5px', boxShadow: '0 2px 4px rgba(0, 0, 0, 0.1)', color: 'white'}}>
+                    <Link to={'/game/wordmatch'} className='' style={{color: 'white', textDecoration: 'none'}}>Word Match Game</Link>
                 </div>
+            <div className='mb-4' style={{backgroundColor: 'teal', padding: '10px', borderRadius: '5px', boxShadow: '0 2px 4px rgba(0, 0, 0, 0.1)', color: 'white'}}>
+                    <Link to={'/game/shapematch'} className='' style={{color: 'white', textDecoration: 'none'}}>Shape Match Game</Link>
+                </div>
+            <div className='mb-4' style={{backgroundColor: 'teal', padding: '10px', borderRadius: '5px', boxShadow: '0 2px 4px rgba(0, 0, 0, 0.1)', color: 'white'}}>
+                    <Link to={'/game/colormatch'} className='' style={{color: 'white', textDecoration: 'none'}}>Shape Match Game</Link>
+                </div>
+
+                </div>
+
 
 
                 {isEditing ? (
