@@ -9,7 +9,7 @@ const Home = () => {
     // API URL - replace with your actual API URL
     const API_URL = process.env.NODE_ENV === 'development' 
         ? 'http://localhost:5000' 
-        : 'https://yourdomain.com';
+        : 'https://vguru-server.vercel.app';
 
     useEffect(() => {
         const fetchUserDetails = async () => {
