@@ -6,6 +6,7 @@ import Home from './components/Home';
 import Dashboard from './components/Dashboard';
 import Navbar from './components/Navbar';
 import axios from 'axios';
+import WordMatchGame from './games/WordMatch';
 
 function App() {
   const API_URL = process.env.NODE_ENV === 'development' 
@@ -43,6 +44,7 @@ function App() {
         <Route path="/login" element={<Login />} />
         <Route path="/signup" element={<Signup />} />
         <Route path='/dashboard' element={<Dashboard />} />
+        <Route path='/game/wordmatch' element={<WordMatchGame />} />
         <Route path="/" element={<Home />} />
       </Routes>
       </BrowserRouter>
