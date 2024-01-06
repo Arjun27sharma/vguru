@@ -9,6 +9,8 @@ import axios from 'axios';
 import WordMatchGame from './games/WordMatch';
 import ShapeGame from './games/ShapeGame';
 import ColorGame from './games/ColorMatch';
+import Story from './components/Story';
+import Quiz from './components/Quiz';
 
 function App() {
   const API_URL = process.env.NODE_ENV === 'development' 
@@ -37,6 +39,40 @@ function App() {
     fetchUserDetails() 
   }, [])
 
+  const questions = [
+    {
+      id: 1,
+      question: "What is the capital of France?",
+      answers: ["Paris", "London", "Berlin", "Madrid"],
+      correctAnswer: "Paris"
+    },
+    {
+      id: 2,
+      question: "What is 3 times 3?",
+      answers: ["6", "9", "12", "15"],
+      correctAnswer: "9"
+    },
+    {
+      id: 3,
+      question: "Is the Earth round?",
+      answers: ["True", "False"],
+      correctAnswer: "True"
+    },
+    {
+      id: 4,
+      question: "Which planet is known as the Red Planet?",
+      answers: ["Earth", "Mars", "Jupiter", "Venus"],
+      correctAnswer: "Mars"
+    },
+    {
+      id: 5,
+      question: "What gas do plants breathe in that humans and animals breathe out?",
+      answers: ["Oxygen", "Carbon Dioxide", "Nitrogen", "Hydrogen"],
+      correctAnswer: "Carbon Dioxide"
+    }
+  ];
+  
+
 
   return (
 
@@ -49,6 +85,8 @@ function App() {
         <Route path='/game/wordmatch' element={<WordMatchGame />} />
         <Route path='/game/shapematch' element={<ShapeGame />} />
         <Route path='/game/colormatch' element={<ColorGame />} />
+        <Route path='/story/:storyId' element={<Story />} />
+        <Route path='/quiz' element={<Quiz questions={questions}/>} />
         <Route path="/" element={<Home />} />
       </Routes>
       </BrowserRouter>

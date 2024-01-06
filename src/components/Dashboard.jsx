@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import { Link } from 'react-router-dom';
+import { stories } from './data';
 
 const Dashboard = () => {
     const [user, setUser] = useState(null);
@@ -53,28 +54,18 @@ const Dashboard = () => {
         setEditData({ ...editData, [e.target.name]: e.target.value });
     };
 
-    if (!user) return <div className="text-center mt-5"><strong>Loading...</strong></div>;
+    if (!user) return <div className="text-start mt-5"><strong>Loading...</strong></div>;
 
     return (
         <div className="container mt-5">
-            <h1 className='text-center mb-3'>Vguru</h1>
-            <h2 className='mb-4 text-center text-primary fw-bold text-uppercase'>{user.role} Dashboard</h2>
+            <h1 className='text-start mb-3' style={{color: '#007bff', textTransform: 'uppercase', fontWeight: 'bold'}}>{user.role} Dashboard</h1>
             
-            <div className='d-flex flex-column align-items-center'>
+            <div className='d-flex flex-column align-items-start'>
 
-<div className='d-flex flex-row gap-3 align-items-center'>
 
-            <div className='mb-4' style={{backgroundColor: 'teal', padding: '10px', borderRadius: '5px', boxShadow: '0 2px 4px rgba(0, 0, 0, 0.1)', color: 'white'}}>
-                    <Link to={'/game/wordmatch'} className='' style={{color: 'white', textDecoration: 'none'}}>Word Match Game</Link>
-                </div>
-            <div className='mb-4' style={{backgroundColor: 'teal', padding: '10px', borderRadius: '5px', boxShadow: '0 2px 4px rgba(0, 0, 0, 0.1)', color: 'white'}}>
-                    <Link to={'/game/shapematch'} className='' style={{color: 'white', textDecoration: 'none'}}>Shape Match Game</Link>
-                </div>
-            <div className='mb-4' style={{backgroundColor: 'teal', padding: '10px', borderRadius: '5px', boxShadow: '0 2px 4px rgba(0, 0, 0, 0.1)', color: 'white'}}>
-                    <Link to={'/game/colormatch'} className='' style={{color: 'white', textDecoration: 'none'}}>Shape Match Game</Link>
-                </div>
 
-                </div>
+
+
 
 
 
@@ -102,31 +93,72 @@ const Dashboard = () => {
                                 name="email" 
                             />
                         </div>
-                        <div className="mb-3">
-                            <label htmlFor="subjects" className="form-label">Subjects</label>
-                            <input 
-                                type="text" 
-                                className="form-control"
-                                id="subjects"
-                                value={editData.subjects} 
-                                onChange={handleChange} 
-                                name="subjects" 
-                                placeholder="Subjects (comma separated)" 
-                            />
-                        </div>
                         <button type="submit" className="btn btn-primary w-100 mt-3">Save</button>
+                        <button type="button" className="btn btn-danger w-100 mt-3" onClick={() => setIsEditing(false)}>calcel</button>
                     </form>
                 ) : (
-                    <div className="border p-4 rounded shadow w-100 w-md-50 text-center">
+                    <div>
+                    <h2 className='text-start mb-3'>Profile</h2>
+                    <div className="border p-4 px-6 rounded shadow  w-md-50 text-start">
                         <p><strong>Name:</strong> {user.name}</p>
                         <p><strong>Email:</strong> {user.email}</p>
-                        <p><strong>Subjects:</strong> {user.subjects?.join(', ')}</p>
                         <button onClick={handleEdit} className="btn btn-outline-primary w-100 mt-3">Edit</button>
+                    </div>
                     </div>
                 )}
 
 
             </div>
+
+            <div className='mt-5'>
+                <div className="container mt-4">
+                    <h2 className="text-start mb-3">Games</h2>
+
+                    <div className='d-flex flex-row gap-3 align-items-center'>
+
+            <div className='mb-4' style={{backgroundColor: 'teal', padding: '10px', borderRadius: '5px', boxShadow: '0 2px 4px rgba(0, 0, 0, 0.1)', color: 'white'}}>
+                    <Link to={'/game/wordmatch'} className='' style={{color: 'white', textDecoration: 'none'}}>Word Match Game</Link>
+                </div>
+            <div className='mb-4' style={{backgroundColor: 'teal', padding: '10px', borderRadius: '5px', boxShadow: '0 2px 4px rgba(0, 0, 0, 0.1)', color: 'white'}}>
+                    <Link to={'/game/shapematch'} className='' style={{color: 'white', textDecoration: 'none'}}>Shape Match Game</Link>
+                </div>
+            <div className='mb-4' style={{backgroundColor: 'teal', padding: '10px', borderRadius: '5px', boxShadow: '0 2px 4px rgba(0, 0, 0, 0.1)', color: 'white'}}>
+                    <Link to={'/game/colormatch'} className='' style={{color: 'white', textDecoration: 'none'}}>Shape Match Game</Link>
+                </div>
+
+                </div>
+
+                </div>
+            </div>
+
+            <div className='mt-5'>
+            <div className="container mt-4">
+
+            <h2 className="text-start mb-3">Quiz</h2>
+                <button className='btn btn-primary'><Link to={'/quiz'} style={{color: 'white', textDecoration: 'none'}}>Start Quiz</Link></button>
+            </div>
+            </div>
+
+            <div className='mt-5'>
+            <div className="container mt-4">
+            <h2 className="text-start mb-3">Select a Story</h2>
+            <div className="d-flex flex-wrap">
+                {stories.map(story => (
+                    <div key={story.id} className="col-md-4 mb-4">
+                        <div className="card">
+                            <img src={story.imageUrl} className="card-img-top" alt={story.title} width={300} height={200} style={{objectFit: 'cover'}}/>
+                            <div className="card-body">
+                                <h5 className="card-title">{story.title}</h5>
+                                <Link to={`/story/${story.id}`} className="btn btn-primary">Read Story</Link>
+                            </div>
+                        </div>
+                    </div>
+                ))}
+            </div>
+        </div>
+            </div>
+
+
         </div>
     );
 };
