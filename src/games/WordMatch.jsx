@@ -52,7 +52,7 @@ const WordMatchGame = () => {
             { !gameOver ?
         <div className="word-match-game d-flex flex-column align-items-center justify-content-start mt-5" style={{ minHeight: '100vh' }}>
             <h3 className="mb-4">Find the Picture: {words[currentWordIndex].name}</h3>
-            <div className="  justify-content-center mb-3" style={{ maxWidth: '800px', display: 'flex', flexWrap: '', gap: '20px' }}>
+            <div className="  justify-content-center mb-3" style={{ maxWidth: '1100px', display: 'flex', flexWrap: 'wrap', gap: '20px' }}>
                 {words.map(word => (
                     <div key={word.id} className="">
                         <img 
