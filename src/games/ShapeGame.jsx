@@ -61,6 +61,8 @@ const ShapeGame = () => {
     };
 
     return (
+        <div className='container mt-5'>
+        <h1>Shape Game</h1>
         <div className="container text-center mt-5">
             <h2 className="mb-4">{!gameOver ? 'What shape is this?' : 'Game Over'}</h2>
             {!gameOver ? (
@@ -104,6 +106,7 @@ const ShapeGame = () => {
             <div className="mt-4 w-50 mx-auto">
                 <ProgressBar completed={Math.round((progress / shapes.length) * 100)} bgColor="#007bff" height="15px" labelSize='10px'/>
             </div>
+        </div>
         </div>
     );
 };

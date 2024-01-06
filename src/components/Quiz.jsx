@@ -21,6 +21,7 @@ const Quiz = ({ questions }) => {
 
     return (
         <div className="container mt-5">
+            <h1 className="mb-4">Quiz - {questions.length} Questions</h1>
             {!quizFinished ? (
                 <div>
                     <h2 className="mb-4">{questions[currentQuestion].question}</h2>

@@ -16,8 +16,8 @@ const Story = () => {
 
     return (
         <div className="container mt-4">
-            <h2 className="text-center mb-3">{story.title}</h2>
-            <img src={story.imageUrl} alt={story.title} className=" mb-3" width={'400px'} height={'300px'} style={{objectFit: 'cover'}}/>
+            <h2 className="text-start mb-3">{story.title}</h2>
+            <img src={story.imageUrl} alt={story.title} className=" mb-3" width={'300px'} height={'200px'} style={{objectFit: 'cover'}}/>
             <p className="story-content">{story.content}</p>
             <div className="interactive-elements">
                 {story.interactiveElements.map(element => (

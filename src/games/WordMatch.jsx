@@ -48,6 +48,8 @@ const WordMatchGame = () => {
     };
 
     return (
+        <div className='container mt-5'>
+        <h1>Word Match Game</h1>
         <div>
             { !gameOver ?
         <div className="word-match-game d-flex flex-column align-items-center justify-content-start mt-5" style={{ minHeight: '100vh' }}>
@@ -87,6 +89,7 @@ const WordMatchGame = () => {
             <button onClick={() => {window.location.reload()}} className="btn btn-primary">Play Again</button>
         </div>
 }
+        </div>
         </div>
     );
 };
