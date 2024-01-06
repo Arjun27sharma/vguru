@@ -18,9 +18,9 @@ export default function Login() {
         e.preventDefault();
         try {
             const user = { email, password };
-            // const config = { headers: { 'Content-Type': 'application/json' } };
+            const config = { headers: { 'Content-Type': 'application/json' } };
             const body = JSON.stringify(user);
-            const response = await axios.post(`${API_URL}/api/users/login`, body);
+            const response = await axios.post(`${API_URL}/api/users/login`, body, config);
             // const response = await axios.post('http://localhost:5000/api/users/login', body, config);
             console.log(response.data); // Handle the response as needed
         } catch (error) {
