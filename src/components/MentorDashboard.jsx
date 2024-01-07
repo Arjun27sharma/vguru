@@ -19,13 +19,19 @@ const MentorDashboard = () => {
 
     const [review, setReview] = useState('')
   return (
-    <div className='container' style={{display: 'flex', flexWrap: 'wrap', justifyContent: 'start', gap: '20px'}}>
+    <div className='container mt-5'>
 
+<h1 className='text-center text-md-start mb-3' style={{color: '#007bff', textTransform: 'uppercase', fontWeight: 'bold'}}>Mentor Dashboard</h1>
+
+<p></p>
+<div className='container' style={{display: 'flex', flexWrap: 'wrap', justifyContent: 'start', gap: '20px'}}>
         {tests.map((test, index) => {
             
             return (
                 <ReviewCard key={index} test={test} index={index}/>
         )})}
+
+</div>
 
     </div>
   )

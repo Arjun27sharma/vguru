@@ -58,7 +58,7 @@ const StudentDashboard = () => {
 
     return (
         <div className="container-fluid mt-5">
-            <h1 className='text-center text-md-start mb-3' style={{color: '#007bff', textTransform: 'uppercase', fontWeight: 'bold'}}>{user.role} Dashboard</h1>
+            <h1 className='text-center text-md-start mb-3' style={{color: '#007bff', textTransform: 'uppercase', fontWeight: 'bold'}}>Student Dashboard</h1>
             
             <div className="row">
                 <div className="col-12 col-md-4 mb-3">
