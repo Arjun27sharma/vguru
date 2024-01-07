@@ -3,7 +3,7 @@ import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import Login from './components/Login'; // Adjust the path as needed
 import Signup from './components/Signup'; // Adjust the path as needed
 import Home from './components/Home';
-import Dashboard from './components/Dashboard';
+import Dashboard from './components/StudentDashboard';
 import Navbar from './components/Navbar';
 import axios from 'axios';
 import WordMatchGame from './games/WordMatch';

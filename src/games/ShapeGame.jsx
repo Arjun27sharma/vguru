@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import ProgressBar from "@ramonak/react-progress-bar";
+import axios from 'axios';
 
 const shapes = [
     { id: 1, name: 'Circle', imageUrl: 'https://upload.wikimedia.org/wikipedia/commons/thumb/a/a0/Circle_-_black_simple.svg/1200px-Circle_-_black_simple.svg.png' },
@@ -13,100 +14,91 @@ const shapes = [
 
 const ShapeGame = () => {
     const [currentShape, setCurrentShape] = useState(shapes[0]);
-    const [isCorrect, setIsCorrect] = useState(null);
     const [progress, setProgress] = useState(0);
+    const [responses, setResponses] = useState([]);
     const [gameOver, setGameOver] = useState(false);
 
-    // useEffect(() => {
-    //     if (gameOver) {
-    //         alert("Game Over! You've completed the Shape Game.");
-    //     }
-    // }, [gameOver]);
-
-    const getNextShape = (current) => {
-        let nextShape;
-        do {
-            nextShape = shapes[Math.floor(Math.random() * shapes.length)];
-        } while (nextShape.id === current.id);
-        return nextShape;
+    const getNextShape = () => {
+        return shapes[Math.floor(Math.random() * shapes.length)];
     };
+
+    // const handleShapeSelect = (shapeName) => {
+    //     setResponses([...responses, {question: currentShape.name, answer: shapeName}]);
+
+    //     if (progress < shapes.length - 1) {
+    //         setCurrentShape(getNextShape());
+    //         setProgress(progress + 1);
+    //     } else {
+    //         setGameOver(true);
+    //     }
+    // };
+
 
     const handleShapeSelect = (shapeName) => {
-        if (shapeName === currentShape.name) {
-            const newProgress = progress + 1;
-            setIsCorrect(true);
-            setProgress(newProgress);
-            if (newProgress === shapes.length) {
-                setGameOver(true);
-            }
+        setResponses([...responses, { question: currentShape.name, answer: shapeName }]);
+    
+        const newProgress = progress + 1;
+        setProgress(newProgress);
+    
+        if (newProgress < shapes.length) {
+            setCurrentShape(getNextShape());
         } else {
-            setIsCorrect(false);
+            setGameOver(true);
         }
     };
+    
 
-    const handleNext = () => {
-        setCurrentShape(getNextShape(currentShape));
-        setIsCorrect(null);
+    const calculateScore = () => {
+        return responses.reduce((score, response) => {
+            return score + (response.question === response.answer ? 1 : 0);
+        }, 0);
     };
 
-    const handleTryAgain = () => {
-        setIsCorrect(null);
-    };
+    const handleSubmit = async () => {
+        const score = calculateScore();
+        let test = {
+            marks: score,
+            testType: 'ShapeGame',
+        };
 
-    const handlePlayAgain = () => {
-        setGameOver(false);
-        setIsCorrect(null);
-        setProgress(0);
-        setCurrentShape(shapes[0]);
+        try {
+            const res = await axios.post('http://localhost:5000/api/test/add', test, {
+                headers: {
+                    Authorization: `Bearer ${localStorage.getItem('token')}`
+                }
+            });
+            console.log(res);
+            window.location = '/dashboard';
+        } catch (err) {
+            console.log(err);
+        }
     };
 
     return (
         <div className='container mt-5'>
-        <h1>Shape Game</h1>
-        <div className="container text-center mt-5">
-            <h2 className="mb-4">{!gameOver ? 'What shape is this?' : 'Game Over'}</h2>
-            {!gameOver ? (
-                <>
-                    <img src={currentShape.imageUrl} alt={currentShape.name} className="img-fluid mb-3" width={250} />
-
+            <h1>Shape Game</h1>
+            <div className="container text-center mt-5">
+                <h2 className="mb-4">{!gameOver ? 'What shape is this?' : 'Game Over'}</h2>
+                {!gameOver ? (
                     <div>
-                    <div className=" " style={{ display: 'flex', justifyContent: 'center', maxWidth: '1100px', flexWrap: 'wrap', alignItems: 'center',  margin: '0 auto'}}>
-                        {shapes.map((shape) => (
-                            <button key={shape.id} className="btn btn-primary m-2" onClick={() => handleShapeSelect(shape.name)}>
-                                {shape.name}
-                            </button>
-                        ))}
-                    </div>
-</div>
-
-{
-    gameOver && (
-        <p>finish</p>
-    )
-}
-                    {/* ... button layout */}
-                    {isCorrect !== null && (
-                        <div className="mt-3">
-                            <p className={`text-${isCorrect ? 'success' : 'danger'}`}>
-                                {isCorrect ? 'Correct!' : 'Wrong shape! Try again!'}
-                            </p>
-                            {isCorrect ? (
-                                <button className="btn btn-success" onClick={handleNext}>Next</button>
-                            ) : (
-                                <button className="btn btn-warning" onClick={handleTryAgain}>Try Again</button>
-                            )}
+                        <img src={currentShape.imageUrl} alt={currentShape.name} className="img-fluid mb-3" width={250} />
+                        <div className="d-flex justify-content-center flex-wrap">
+                            {shapes.map((shape) => (
+                                <button key={shape.id} className="btn btn-primary m-2" onClick={() => handleShapeSelect(shape.name)}>
+                                    {shape.name}
+                                </button>
+                            ))}
                         </div>
-                    )}
-                </>
-            ) : (
-                <div>
-                    <button className="btn btn-info" onClick={handlePlayAgain}>Play Again</button>
+                    </div>
+                ) : (
+                    <div>
+                        <button className="btn btn-primary" onClick={handleSubmit}>Submit Test</button>
+                    </div>
+                )}
+                <div className="mt-4 w-50 mx-auto">
+                    <ProgressBar completed={Math.round(((progress) / shapes.length) * 100)} bgColor="#007bff" height="15px" labelSize='10px'/>
                 </div>
-            )}
-            <div className="mt-4 w-50 mx-auto">
-                <ProgressBar completed={Math.round((progress / shapes.length) * 100)} bgColor="#007bff" height="15px" labelSize='10px'/>
             </div>
-        </div>
         </div>
     );
 };

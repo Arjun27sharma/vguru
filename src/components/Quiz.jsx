@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import axios from 'axios';
 
 const Quiz = ({ questions }) => {
     const [currentQuestion, setCurrentQuestion] = useState(0);
@@ -16,6 +17,25 @@ const Quiz = ({ questions }) => {
             setSelectedAnswer('');
         } else {
             setQuizFinished(true);
+        }
+    };
+
+    const handleSubmit = async () => {
+        let test = {
+            marks: score,
+            testType: 'Quiz',
+        };
+
+        try {
+            const res = await axios.post('http://localhost:5000/api/test/add', test, {
+                headers: {
+                    Authorization: `Bearer ${localStorage.getItem('token')}`
+                }
+            });
+            console.log(res);
+            window.location = '/dashboard';
+        } catch (err) {
+            console.log(err);
         }
     };
 
@@ -43,14 +63,14 @@ const Quiz = ({ questions }) => {
                             </div>
                         ))}
                         <button type="button" className="btn btn-primary mt-3" onClick={handleAnswerSubmit}>
-                            Submit & Next
+                            Save & Next
                         </button>
                     </form>
                 </div>
             ) : (
                 <div className="text-center">
                     <h2>Quiz Finished!</h2>
-                    <p className="fw-bold">Your Score: {score} / {questions.length}</p>
+                    <button className='btn btn-primary' onClick={handleSubmit}>Submit text</button>
                 </div>
             )}
         </div>

@@ -12,14 +12,20 @@ const Navbar = ({ user }) => {
                 <div className="collapse navbar-collapse" id="navbarNav">
                     <ul className="navbar-nav ms-auto">
                         {user ? (
-                            <>
+                            <div style={{ display: 'flex', alignItems: 'center', gap: '20px' }}>
                                 <li className="nav-item">
-                                    <span className="nav-link">Welcome, {user.name}</span>
+                                    <span className="nav-link">Welcome {user.name}</span>
                                 </li>
                                 <li className="nav-item">
                                     <Link className=" btn btn-primary text-white" to="/dashboard">Dashboard</Link>
                                 </li>
-                            </>
+                                <li className="nav-item">
+                                    <span onClick={() => {
+                                        localStorage.removeItem('token')
+                                        window.location.reload()
+                                }} style={{ cursor: 'pointer' }} className=" btn btn-danger" to="/logout">Logout</span>
+                                </li>
+                            </div>
                         ) : (
                             <>
                                 <li className="nav-item">
