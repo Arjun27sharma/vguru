@@ -43,6 +43,10 @@ const WordMatchGame = () => {
         }, 0);
     };
 
+    const API_URL = process.env.NODE_ENV === 'development' 
+    ? 'http://localhost:5000' 
+    : 'https://vguru-server.vercel.app';
+
     const handleSubmit = async () => {
         const score = calculateScore();
         let test = {
@@ -51,7 +55,7 @@ const WordMatchGame = () => {
         };
 
         try {
-            const res = await axios.post('http://localhost:5000/api/test/add', test, {
+            const res = await axios.post(`${API_URL}/api/test/add`, test, {
                 headers: {
                     Authorization: `Bearer ${localStorage.getItem('token')}`
                 }
