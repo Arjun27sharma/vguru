@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { BrowserRouter, Routes, Route } from 'react-router-dom';
+import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom';
 import Login from './components/Login'; // Adjust the path as needed
 import Signup from './components/Signup'; // Adjust the path as needed
 import Home from './components/Home';
@@ -11,6 +11,8 @@ import ShapeGame from './games/ShapeGame';
 import ColorGame from './games/ColorMatch';
 import Story from './components/Story';
 import Quiz from './components/Quiz';
+import MentorDashboard from './components/MentorDashboard';
+import ParentDashboard from './components/ParentDashboard';
 
 function App() {
   const API_URL = process.env.NODE_ENV === 'development' 
@@ -81,7 +83,7 @@ function App() {
       <Routes>
         <Route path="/login" element={<Login />} />
         <Route path="/signup" element={<Signup />} />
-        <Route path='/dashboard' element={<Dashboard />} />
+        <Route path='/dashboard' element={user?.role === 'student' ? <Dashboard /> : user?.role === 'mentor' ? <MentorDashboard /> : user?.role === 'parent' ? <ParentDashboard /> : <Navigate to="/" />} />
         <Route path='/game/wordmatch' element={<WordMatchGame />} />
         <Route path='/game/shapematch' element={<ShapeGame />} />
         <Route path='/game/colormatch' element={<ColorGame />} />

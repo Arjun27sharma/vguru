@@ -120,7 +120,7 @@ const StudentDashboard = () => {
                                 </tr>
                             </thead>
                             <tbody>
-                                {user.tests?.map((test, index) => {
+                                {[...user.tests].reverse().map((test, index) => {
                                     const testDate = new Date(test.createdAt).toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' });
                                     return (
                                         <tr key={index}>
@@ -129,7 +129,7 @@ const StudentDashboard = () => {
                                             <td>{test.marks}</td>
                                             <td>{testDate}</td>
                                             <td>{test.reviewed ? 'Yes' : 'No'}</td>
-                                            <td>{test.reviewedBy ? test.reviewedBy : 'N/A'}</td>
+                                            <td>{test.reviewedBy ? test.reviewedBy.name : 'N/A'}</td>
                                             <td>{test.remarks ? test.remarks : 'N/A'}</td>
                                         </tr>
                                     );
