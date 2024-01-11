@@ -7,6 +7,10 @@ const Quiz = ({ questions }) => {
     const [score, setScore] = useState(0);
     const [quizFinished, setQuizFinished] = useState(false);
 
+    const API_URL = process.env.NODE_ENV === 'development' 
+    ? 'http://localhost:5000' 
+    : 'https://vguru-server.vercel.app';
+
     const handleAnswerSubmit = () => {
         if (selectedAnswer === questions[currentQuestion].correctAnswer) {
             setScore(score + 1);
@@ -27,7 +31,7 @@ const Quiz = ({ questions }) => {
         };
 
         try {
-            const res = await axios.post('http://localhost:5000/api/test/add', test, {
+            const res = await axios.post(`${API_URL}/api/test/add`, test, {
                 headers: {
                     Authorization: `Bearer ${localStorage.getItem('token')}`
                 }
